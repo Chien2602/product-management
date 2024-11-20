@@ -16,3 +16,8 @@ document.addEventListener("DOMContentLoaded", function () {
       });
   });
   
+
+  const showPage = (event) => {
+    event.preventDefault();
+    window.location.href = 'http://localhost:3000/admin/home';
+  }

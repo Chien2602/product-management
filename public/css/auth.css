@@ -1,6 +1,6 @@
 body {
   font-family: Arial, sans-serif;
-  background-image: url(../image/background.jpg);
+  background-image: url("../image/background.jpg");
   background-repeat: no-repeat;
   background-size: cover;
   display: flex;
@@ -96,4 +96,10 @@ button:hover {
 
 .form-container.active {
   display: block;
+}
+
+a {
+  text-decoration: none;
+  color: #537cb9;
+  font-weight: 600;
 }

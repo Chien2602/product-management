@@ -11,7 +11,7 @@ block main
         .form-group
           label(for="loginPassword") Password
           input(type="password", id="loginPassword", name="loginPassword", required)
-        button(type="submit") Log In
+        button.submit(type="submit" onClick = "showPage(event)") Log In
       .switch-container
         p.switch(style="margin-right: 10px")  You haven't created an account?
         a(href="http://localhost:3000/register")  Register
