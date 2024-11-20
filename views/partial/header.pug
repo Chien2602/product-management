@@ -1,0 +1,33 @@
+header
+  .menu
+    button.menubtn
+      a(href="http://localhost:3000/admin/home") Trang chủ
+    button.menubtn
+      a(href="http://localhost:3000/admin/employee") Nhân viên
+    button.menubtn
+      a(href="http://localhost:3000/admin/customer") Khách hàng
+    button.menubtn
+      a(href="http://localhost:3000/admin/product") Sản phẩm
+    button.menubtn
+      a(href="http://localhost:3000/admin/bill") Hóa đơn
+    button.menubtn
+      a(href="http://localhost:3000/admin/statistical") Thống kê
+
+    .search-box
+      input.search-input(type="text", placeholder="Search")
+      button.search-btn
+        i.fas.fa-search
+
+    i.fa-solid.fa-cart-shopping.test(data-name="giỏ hàng") 
+    a.account(href="http://localhost:3000/admin/account")
+      i.fa-solid.fa-user.test(data-name="tài khoản")
+
+style.
+  .menu a {
+    color: white; /* Màu chữ trắng */
+    text-decoration: none; /* Loại bỏ gạch chân */
+  }
+
+  .account {
+    margin-left: 250px;
+  }

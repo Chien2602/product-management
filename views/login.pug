@@ -1,0 +1,17 @@
+extends defaults/defaultAuth
+
+block main
+
+    #loginContainer.form-container.active
+      h2 Log In
+      form#loginForm
+        .form-group
+          label(for="loginUsername") Username
+          input(type="text", id="loginUsername", name="loginUsername", required)
+        .form-group
+          label(for="loginPassword") Password
+          input(type="password", id="loginPassword", name="loginPassword", required)
+        button(type="submit") Log In
+      .switch-container
+        p.switch(style="margin-right: 10px")  You haven't created an account?
+        a(href="http://localhost:3000/register")  Register
