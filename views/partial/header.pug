@@ -1,33 +1,100 @@
 header
-  .menu
-    button.menubtn
-      a(href="http://localhost:3000/admin/home") Trang chủ
-    button.menubtn
-      a(href="http://localhost:3000/admin/employee") Nhân viên
-    button.menubtn
-      a(href="http://localhost:3000/admin/customer") Khách hàng
-    button.menubtn
-      a(href="http://localhost:3000/admin/product") Sản phẩm
-    button.menubtn
-      a(href="http://localhost:3000/admin/bill") Hóa đơn
-    button.menubtn
-      a(href="http://localhost:3000/admin/statistical") Thống kê
-
-    .search-box
-      input.search-input(type="text", placeholder="Search")
-      button.search-btn
-        i.fas.fa-search
-
-    i.fa-solid.fa-cart-shopping.test(data-name="giỏ hàng") 
-    a.account(href="http://localhost:3000/admin/account")
-      i.fa-solid.fa-user.test(data-name="tài khoản")
+  .header
+    .box.inbutBox
+      input(type="text", class="search-box", placeholder="Search")
+      i(class="search fa-light fa-magnifying-glass")
+    .box.user
+        a(href="") 
+            i.fa-duotone.fa-light.fa-user
+        | Hi Chien
 
 style.
-  .menu a {
-    color: white; /* Màu chữ trắng */
-    text-decoration: none; /* Loại bỏ gạch chân */
+  /* Header container */
+    header {
+        position: fixed;  /* Fix the header to the top */
+        top: 0;  /* Align it at the top of the page */
+        left: 0;  /* Align it to the left */
+        right: 0;  /* Ensure it spans the full width */
+        z-index: 1000;  /* Make sure it's above other content */
+        margin-left: 210px;  /* Adjust left margin if necessary */
+        display: flex;  /* Align elements horizontally */
+        justify-content: flex-start;  /* Align elements to the left */
+        align-items: center;  /* Vertically center elements */
+        padding: 10px;
+        width: 100%;  /* Full width */
+        height: 60px;  /* Set fixed height for header */
+        box-sizing: border-box;  /* Include padding in width */
+        margin-bottom: 50px;
+        background-image: linear-gradient(to left, white, white);  /* Gradient background */
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);  /* Add shadow for depth */
+    }
+
+
+  /* Box styling for the search input and user greeting */
+  .inbutBox {
+    position: relative;
+    display: flex;
+    align-items: center;
+    padding: 5px 10px;
+    flex-shrink: 0;  /* Prevent box from shrinking */
+    margin-right: 20px;  /* Space between search and greeting box */
   }
 
-  .account {
-    margin-left: 250px;
+  /* Search input box */
+  .search-box {
+    width: 250px;
+    height: 36px;
+    border: 1px solid #ccc;
+    border-radius: 10px;
+    padding-left: 10px;
+    padding-right: 55px;  /* Space for the icon */
+    font-size: 17px;
+    outline: none;
+    transition: border-color 0.3s ease;
+    background-color: black;
+    color: white;
+    margin-left: 50px;
+  }
+
+  .search-box:focus {
+    border-color: #448EED;  /* Focus effect */
+  }
+
+  /* Search icon inside the input */
+  .search {
+    position: absolute;
+    right: 10px;  /* Position the icon to the right */
+    font-size: 20px;
+    color: white;
+    background-color: #3CB371;
+    border-radius: 25%;
+    padding: 8px;
+    cursor: pointer;
+    margin-right: 1px;
+    transition: background-color 0.3s ease, transform 0.3s ease;
+  }
+  .header {
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+  }
+
+  .box {
+    display: flex;
+    align-items: center;
+  }
+
+  .user i {
+    font-size: 20px;
+    color: black;
+    width: 40px;
+    height: 40px;
+    display: flex;
+    color: white;
+    align-items: center; /* Vertically center the icon */
+    justify-content: center; /* Horizontally center the icon */
+    border-radius: 50%; /* Make the icon circular */
+    background-color: #7f8585; /* Optional: background color for the circle */
+    margin-left: 800px;
+    margin-right: 7px;
   }

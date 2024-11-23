@@ -1,11 +1,11 @@
 const product = require("../../model/product.model");
 
 module.exports.index = async(req, res) => {
-    const product_item = await product.find({
-        status: 'active'
-    });
-    console.log(product_item);
+    const products = await product.find({});
+    console.log(products);
     res.render("../views/admin/product.pug", {
-        title: "Trang sản phẩm"
+        title: "Trang sản phẩm",
+        products: products,
+        header: "Danh sách sản phẩm"
     })
 }

@@ -1,5 +1,5 @@
 module.exports.index = (req, res) => {
-    res.render("../views/admin/home.pug", {
+    res.render("../views/admin/dashboard.pug", {
         title: "Trang chủ"
     })
 }
