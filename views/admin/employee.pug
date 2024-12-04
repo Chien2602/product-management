@@ -1,6 +1,8 @@
-extends ../defaults/defaultPage
+extends ../defaults/defaultAdmin
 
 block main
+  link(rel="stylesheet", href="/css/admin/tableDefault.css")
+  
   main(class="table", id="customers_table")
     section(class="table__header")
       h1 #{header}
@@ -35,5 +37,7 @@ block main
                     td #{item.role}
                     td
                         button.btn.btn-primary(style="border-radius: 5px;") Xem
+                        button.btn.btn-primary(style="border-radius: 5px; background-color: #4EB09B") Chỉnh sửa
+                        button.btn.btn-primary(style="border-radius: 5px; background-color: red") Xóa
 
 

@@ -1,0 +1,147 @@
+style.
+    body {
+        font-family: 'JetBrains Mono', monospace;
+        margin: 0;
+        padding: 0;
+        background-color: #f5f5f5;
+    }
+
+    header {
+        background-color: #4daf54;
+        background-image: linear-gradient(to left, #4daf54, #3d8880);
+        padding: 0 30px;
+        height: 70px;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        position: fixed;
+        width: 100%;
+        z-index: 1000;
+    }
+
+    .menu {
+        display: flex;
+        align-items: center;
+        gap: 20px;
+    }
+
+    .menu img {
+        height: 50px;
+        width: auto;
+        cursor: pointer;
+        transition: transform 0.3s;
+    }
+
+    .menu img:hover {
+        transform: scale(1.1);
+    }
+
+    .menu label {
+        font-size: 30px;
+        font-weight: bold;
+        color: white;
+        margin-right: 300px;
+        margin-bottom: 15px;
+        cursor: default;
+        transition: color 0.3s, transform 0.3s;
+        font-family: "Lacquer", system-ui;
+        margin-left: 0;
+    }
+
+    .menu button {
+        background-color: transparent;
+        border: none;
+        font-size: 16px;
+        color: white;
+        padding: 10px 15px;
+        border-radius: 10px;
+        cursor: pointer;
+        transition: all 0.3s;
+    }
+
+    .menu .menubtn:hover {
+        background-color: rgba(255, 255, 255, 0.2);
+        transform: scale(1.1);
+    }
+
+    .search-box {
+        width: 400px;
+        height: 40px;
+        background-color: #333;
+        border-radius: 10px;
+        display: flex;
+        align-items: center;
+        padding: 0 10px;
+        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+    }
+
+    .search-input {
+        flex: 1;
+        border: none;
+        background: transparent;
+        color: #fff;
+        padding: 0 10px;
+        font-size: 14px;
+        outline: none;
+    }
+
+    .search-btn {
+        background-color: white;
+        border: none;
+        width: 40px;
+        height: 40px;
+        border-radius: 10px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        cursor: pointer;
+        transition: background-color 0.3s, transform 0.2s;
+    }
+
+    .search-btn:hover {
+        background-color: #0056b3;
+        transform: scale(1.1);
+    }
+
+    .fa-user, .fa-cart-shopping {
+        color: white;
+        font-size: 20px;
+        cursor: pointer;
+        margin-left: 20px;
+        transition: transform 0.3s, color 0.3s;
+    }
+
+    .fa-user:hover, .fa-cart-shopping:hover {
+        color: #ddd;
+        transform: scale(1.2);
+    }
+
+    .color-filter {
+        filter: invert(100%) brightness(0); /* Thay đổi màu sắc hình ảnh */
+        transition: filter 0.3s ease;
+    }
+
+    .color-filter:hover {
+        cursor: pointer;
+    }
+    .menu a {
+        text-decoration: none;
+        color: white;
+        margin-right: 10px;
+    }
+
+
+header
+    .menu
+        img(src="/image/logoBook.png", alt="abc", class="color-filter")
+        label Book Store
+        a(href="http://localhost:3000/home").menubtn Trang chủ
+        a(href="http://localhost:3000/product").menubtn Sản phẩm
+        a(href="http://localhost:3000/product").menubtn Danh sách yêu thích
+        .search-box
+            input.search-input(type="text" placeholder="Search")
+            button.search-btn
+                i.fas.fa-search
+        i.fa-solid.fa-cart-shopping(data-name="giỏ hàng" style="margin-right: 150px")
+        i.fa-solid.fa-user(data-name="tài khoản" style="float: right")

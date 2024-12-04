@@ -1,0 +1,40 @@
+.cart-container {
+    margin: 50px auto;
+    padding: 20px;
+    background: #fff;
+    border-radius: 8px;
+    margin-top: 90px;
+    background: rgba(255, 255, 255, 0.5);
+    box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
+    color: #1A2035;
+}
+.product-img {
+    max-width: 80px;
+    border-radius: 8px;
+}
+.btn-update, .btn-checkout {
+    background-color: #3c40c6;
+    border: none;
+    color: white;
+    padding: 10px 15px;
+    border-radius: 5px;
+}
+.btn-update:hover, .btn-checkout:hover {
+    background-color: #575fcf;
+}
+.btn-remove {
+    color: #dc3545;
+    border: none;
+    background: none;
+}
+.btn-remove:hover {
+    color: #b02a37;
+}
+.total-summary {
+    border-top: 2px solid #dee2e6;
+    padding-top: 15px;
+}
+.form-check-input {
+    width: 1.5em;
+    height: 1.5em;
+}

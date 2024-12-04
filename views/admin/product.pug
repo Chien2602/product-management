@@ -1,6 +1,8 @@
-extends ../defaults/defaultPage
-
+extends ../defaults/defaultAdmin
 block main
+  // Import css
+  link(rel="stylesheet", href="/css/admin/tableDefault.css")
+
   main(class="table", id="customers_table")
     section(class="table__header")
       h1 #{header}
@@ -11,12 +13,12 @@ block main
       table
         thead
           tr
-            th(style="font-weight: bold; text-align: center;") STT
-            th(style="font-weight: bold; text-align: center;") Hình ảnh
-            th(style="font-weight: bold; text-align: center;") Tiêu đề
-            th(style="font-weight: bold; text-align: center;") Giá
-            th(style="font-weight: bold; text-align: center;") Trạng thái
-            th(style="font-weight: bold; text-align: center;") Hành động
+            th STT
+            th Hình ảnh
+            th Tiêu đề
+            th Giá
+            th Trạng thái
+            th Hành động
 
         tbody
           each item, index in products

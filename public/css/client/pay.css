@@ -1,0 +1,39 @@
+body {
+    font-family: "Roboto", sans-serif !important;
+    font-weight: 400;
+    font-style: normal;
+    margin: 0;
+    padding: 0;
+    overflow-x: hidden;
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+    background-image: linear-gradient(to right, #6A9DFD, #AEE5FF);
+}
+
+.container {
+    margin-top: 25px;
+    background: #fff;
+    border-radius: 10px;
+    padding: 20px;
+    height: calc(100vh - 200px);
+    background: rgba(255, 255, 255, 0.7);
+    box-shadow: 0 0 15px rgba(0, 0, 0, 0.3);
+}
+.payment-title {
+    font-weight: bold;
+    margin-bottom: 20px;
+}
+.order-summary img {
+    max-width: 50px;
+}
+.btn-place-order {
+    background-color: #E58A8B;
+    border: none;
+    color: white;
+    padding: 10px 20px;
+    border-radius: 5px;
+}
+.btn-place-order:hover {
+    background-color: #FFBFB2;
+}

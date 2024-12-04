@@ -1,0 +1,93 @@
+block main
+    link(rel="stylesheet", href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.0.1/css/bootstrap.min.css")
+    link(rel="stylesheet", href="/css/client/pay.css")
+    link(rel="stylesheet" href="https://site-assets.fontawesome.com/releases/v6.7.1/css/all.css")
+    script(src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js")
+    .container
+        h3.text-center(style="margin-bottom: 50px") THANH TOÁN ĐƠN HÀNG
+        //- Header
+        .d-flex.justify-content-between.align-items-center.mb-3
+            i.fa-solid.fa-arrow-left(style="padding:0")
+            a(href="http://localhost:3000/home" class="text-decoration-none text-muted" style="margin-right:1165px") Back to shop
+        .row
+            //- Payment Section
+            .col-md-6
+                h4.payment-title Thông tin thẻ
+                form
+                    .mb-3
+                        label(for="cardholderName" class="form-label") Họ tên chủ thẻ:
+                        input#cardholderName.form-control(type="text" placeholder="NGUYEN VAN A")
+                    .mb-3
+                        label(for="cardNumber" class="form-label") Số thẻ:
+                        input#cardNumber.form-control(type="text" placeholder="01234 56789 1379 2468")
+                    .row
+                        .col-md-6
+                            label(for="expiryDate" class="form-label") Hạn thẻ:
+                            input#expiryDate.form-control(type="text" placeholder="YY/MM")
+                        .col-md-6
+                            label(for="bankSelect" class="form-label") Chọn ngân hàng:
+                            select#bankSelect.form-select
+                                option(value="") -- Chọn ngân hàng --
+                    .form-check.mt-3
+                        input#saveCard.form-check-input(type="checkbox")
+                        label(for="saveCard" class="form-check-label") Lưu thông tin thẻ vào ví
+            //- Order Summary
+            .col-md-6
+                h4.payment-title Danh sách đơn hàng
+                .order-summary.mb-3
+                    .d-flex.justify-content-between.align-items-center.mb-2
+                        img(src="https://via.placeholder.com/50" alt="Item 1")
+                        div
+                            p.mb-0 Be Legendary Lipstick-Nude Rose
+                            small Số lượng: 1
+                        p.mb-0 $26.99
+                    .d-flex.justify-content-between.align-items-center
+                        img(src="https://via.placeholder.com/50" alt="Item 2")
+                        div
+                            p.mb-0 Be Legendary Lipstick-Sheer Navy Cream
+                            small Số lượng: 1
+                        p.mb-0 $19.99
+                hr
+                .d-flex.justify-content-between.mb-2
+                    p.mb-0 Tổng giá trị đơn hàng
+                    p.mb-0 $46.98
+                .d-flex.justify-content-between.mb-2
+                    p.mb-0 Phí vận chuyển
+                    p.mb-0 Free
+                .d-flex.justify-content-between.mb-3
+                    strong Tổng tiền phải thanh toán
+                    strong $46.98
+                button.btn-place-order.w-100(type="button") Thanh toán
+                p.text-center.mt-3.text-muted Complimentary Shipping & Returns
+    script(src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js")
+    script.
+        // Fetching bank list from API
+        document.addEventListener('DOMContentLoaded', async () => {
+            const bankSelect = document.getElementById('bankSelect');
+
+            try {
+                const response = await axios.get('https://api.vietqr.io/v2/banks');
+                const banks = response.data.data; // API returns a `data` field containing an array of banks
+
+                // Populate the dropdown
+                banks.forEach(bank => {
+                    const option = document.createElement('option');
+                    option.value = bank.code; // Use bank code as the value
+                    option.textContent = bank.shortName; // Use bank name as the label
+                    bankSelect.appendChild(option);
+                });
+            } catch (error) {
+                console.error('Error fetching banks:', error);
+                alert("Không thể tải danh sách ngân hàng. Vui lòng thử lại!");
+            }
+        });
+
+        // Handle payment button click
+        document.querySelector('.btn-place-order').addEventListener('click', () => {
+            const selectedBank = document.getElementById('bankSelect').value;
+            if (selectedBank) {
+                alert(`Bạn đã chọn ngân hàng: ${selectedBank}`);
+            } else {
+                alert('Vui lòng chọn ngân hàng.');
+            }
+        });

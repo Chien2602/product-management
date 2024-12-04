@@ -1,0 +1,38 @@
+extends ../defaults/defaultClient.pug
+block main
+    link(rel="stylesheet", href="/css/client/productInformation.css")
+    .container
+        .product-detail
+            .product-image
+                img(src="https://via.placeholder.com/500", alt="Sản phẩm")
+            .product-info
+                h1 Sản phẩm tuyệt vời
+                p Đây là mô tả chi tiết của sản phẩm. Sản phẩm này có chất lượng tuyệt vời, thiết kế đẹp mắt và rất phù hợp với nhu cầu sử dụng của bạn.
+                .product-price 1.000.000 VNĐ
+
+                .quantity-selector
+                    label(for="quantity") Số lượng:
+                    select(id="quantity", name="quantity")
+                        option(value="1") 1
+                        option(value="2") 2
+                        option(value="3") 3
+                        option(value="4") 4
+                        option(value="5") 5
+
+                .color-selector
+                    label(for="color") Màu sắc:
+                    select(id="color", name="color")
+                        option(value="red") Đỏ
+                        option(value="blue") Xanh dương
+                        option(value="green") Xanh lá
+                        option(value="black") Đen
+
+                button.add-to-cart-btn Thêm vào giỏ hàng
+                button.buy-product Mua hàng
+
+        .comments-section
+            h2 Bình luận về sản phẩm
+            .add-comment
+                textarea(id="new-comment", placeholder="Viết bình luận...")
+                button(onclick="addComment()") Gửi bình luận
+    script(src="/js/client/productInformation.js")

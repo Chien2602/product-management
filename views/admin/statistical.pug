@@ -1,4 +1,132 @@
-extends ../defaults/defaultPage
+extends ../defaults/defaultAdmin
 
-block main 
-    h1(style="margin-left: 230px") Trang thống kê
+block main
+  .container.my-4(style="margin-left: 230px; padding-top: 70px")
+    h1.dashboard-title(style="margin-bottom: 50px") Dashboard
+    .d-flex.justify-content-end.gap-2.mb-4
+      button.btn.btn-manage Quản lý
+      button.btn.btn-add-customer Thêm Khách hàng
+      button.btn.btn-add-employee Thêm nhân viên
+    .row.g-3
+      .col-3
+        .card
+          .card-content
+            i.fa-solid.fa-users.card-icon
+            .text-content
+              .card-title Khách hàng
+              .card-value 1,294
+      .col-3
+        .card
+          .card-content
+            i.fas.fa-user-tie.card-icon
+            .text-content
+              .card-title Nhân viên
+              .card-value 1,303
+      .col-3
+        .card
+          .card-content
+            i.fas.fa-shopping-bag.card-icon
+            .text-content
+              .card-title Sản phẩm
+              .card-value 235
+      .col-3
+        .card
+          .card-content
+            i.fa-solid.fa-box.card-icon
+            .text-content
+              .card-title Nhập hàng
+              .card-value 576
+    .row.g-4
+      .col-6
+        .chart-container
+          canvas#myDonutChart
+
+        .titles
+          .main-title(style="float: left; margin-left: 90px; margin-top: 20px") Donut Chart
+      .col-6
+        table.table.table-hover.table-sm(style="float: right; border-radius: 10px; overflow: hidden;")
+          thead(style="background-color: #007bff; color: white;")
+            tr
+              th(style="font-weight: bold; text-align: center;") STT
+              th(style="font-weight: bold; text-align: center;") Hình ảnh
+              th(style="font-weight: bold; text-align: center;") Tiêu đề
+              th(style="font-weight: bold; text-align: center;") Giá
+              th(style="font-weight: bold; text-align: center;") Trạng thái
+              th(style="font-weight: bold; text-align: center;") Hành động
+          tbody
+            tr(style="text-align: center;")
+              td 1
+              td
+                img(src="https://cdn.dummyjson.com/products/images/mobile-accessories/Selfie%20Stick%20Monopod/thumbnail.png", alt="item.title", width="100", height="auto", style="border-radius: 5px;")
+              td 1
+              td 11$ 
+              td
+                a(href="#", class=`status-link active`, style="text-decoration: none; padding: 5px 10px; border-radius: 20px; background-color: #28a745; color: white;") Active
+              td
+                button.btn.btn-primary(style="border-radius: 5px;") Chỉnh sửa
+                button.btn.btn-danger(style="border-radius: 5px; margin-left: 10px;") Xóa
+
+  style.
+    .container {
+      width: 1250px;
+    }
+    .card {
+      border: none;
+      border-radius: 12px;
+      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+      display: flex;
+      align-items: center;
+      padding: 15px;
+      height: 120px;
+      margin-bottom: 20px;
+    }
+    .card-content {
+      display: flex;
+      align-items: center;
+      gap: 15px;
+    }
+    .card-icon {
+      font-size: 50px;
+      color: #007bff;
+    }
+    .text-content {
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+    }
+    .card-title {
+      font-size: 16px;
+      font-weight: 500;
+      margin: 0;
+      color: #6c757d;
+    }
+    .card-value {
+      font-size: 24px;
+      font-weight: bold;
+      color: #333;
+    }
+    .dashboard-title {
+      margin-bottom: 20px;
+    }
+    .btn-manage {
+      background-color: #e7f1ff;
+      color: #007bff;
+    }
+    .btn-add-customer, .btn-add-employee {
+      background-color: #007bff;
+      color: #fff;
+    }
+    .chart-container {
+      position: relative;
+      width: 300px;
+      height: 300px;
+    }
+    
+    .main-title {
+      font-size: 24px;
+      font-weight: bold;
+    }
+    .status-link.active {
+      background-color: #28a745;
+      color: #fff;
+    }
