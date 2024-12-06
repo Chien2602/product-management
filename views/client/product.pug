@@ -1,5 +1,4 @@
 extends ../defaults/defaultClient
-
 block main
     link(rel="stylesheet", href="/css/client/product.css")
     .container.my-3
@@ -11,7 +10,7 @@ block main
         .row.mb-4.filter-section
             .col-md-4
                 label(for="filter-name" class="form-label") Tìm kiếm theo tên
-                input#filter-name.form-control(type="text" placeholder="Nhập tên sản phẩm")
+                input#filter-name.form-control(type="text" class="inputTex" placeholder="Nhập tên sản phẩm")
             .col-md-4
                 label(for="filter-price" class="form-label") Khoảng giá
                 select#filter-price.form-select
@@ -32,12 +31,9 @@ block main
         .row#product-list
             each item in products
                 .col-4.mb-3
-                    .product-item
+                    .product-item(data-id=item.id onclick="addToCart('" + item.id + "', '" + item.title + "', '" + item.priceNew + "')")
                         .inner-image.position-relative
                             img(src=item.thumbnail, alt=item.title)
-                            //- Nút trái tim
-                            button.favorite-btn(type="button" data-id=item.id)
-                                i.fa.fa-heart
                         .inner-content
                             h3.inner-title= item.title
                             .inner-price-new= "$" + item.priceNew
@@ -48,122 +44,24 @@ block main
                             i.fa.fa-cart-plus
                             | Add to Cart
 
-    script(src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js")
-    script(src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js")
     script.
-        // Bộ lọc sản phẩm và xử lý yêu thích
-        document.addEventListener('DOMContentLoaded', () => {
-            const productList = document.getElementById('product-list');
-            const filterName = document.getElementById('filter-name');
-            const filterPrice = document.getElementById('filter-price');
-            const filterDiscount = document.getElementById('filter-discount');
-
-            const favoriteProducts = new Set(); // Lưu các sản phẩm yêu thích
-
-            // Hàm lọc sản phẩm
-            const filterProducts = () => {
-                const nameValue = filterName.value.toLowerCase();
-                const priceValue = filterPrice.value;
-                const discountValue = filterDiscount.value;
-
-                // Lọc sản phẩm
-                const filteredProducts = products.filter(item => {
-                    // Tìm kiếm theo tên
-                    const matchesName = item.title.toLowerCase().includes(nameValue);
-
-                    // Lọc theo giá
-                    let matchesPrice = true;
-                    if (priceValue !== 'all') {
-                        const [min, max] = priceValue.split('-').map(Number);
-                        const price = parseFloat(item.priceNew);
-                        matchesPrice = max
-                            ? price >= min && price <= max
-                            : price >= min; // Trường hợp "Trên $200"
-                    }
-
-                    // Lọc theo mức giảm giá
-                    let matchesDiscount = true;
-                    if (discountValue !== 'all') {
-                        const minDiscount = parseFloat(discountValue);
-                        matchesDiscount = item.discountPercentage >= minDiscount;
-                    }
-
-                    return matchesName && matchesPrice && matchesDiscount;
-                });
-
-                // Hiển thị danh sách sản phẩm
-                productList.innerHTML = filteredProducts.map(item => `
-                    <div class="col-4 mb-3">
-                        <div class="product-item">
-                            <div class="inner-image position-relative">
-                                <img src="${item.thumbnail}" alt="${item.title}" />
-                                <button class="favorite-btn" type="button" data-id="${item.id}">
-                                    <i class="fa fa-heart ${favoriteProducts.has(item.id) ? 'active' : ''}"></i>
-                                </button>
-                            </div>
-                            <div class="inner-content">
-                                <h3 class="inner-title">${item.title}</h3>
-                                <div class="inner-price-new">$${item.priceNew}</div>
-                                <div class="inner-price-old">$${item.price}</div>
-                                <div class="inner-discount">${item.discountPercentage}%</div>
-                            </div>
-                            <button class="btn btn-primary">
-                                <i class="fa fa-cart-plus"></i> Add to Cart
-                            </button>
-                        </div>
-                    </div>
-                `).join('');
-
-                // Gán sự kiện cho nút trái tim
-                document.querySelectorAll('.favorite-btn').forEach(btn => {
-                    btn.addEventListener('click', () => {
-                        const productId = btn.getAttribute('data-id');
-                        const icon = btn.querySelector('.fa-heart');
-                        if (favoriteProducts.has(productId)) {
-                            favoriteProducts.delete(productId);
-                            icon.classList.remove('active');
-                        } else {
-                            favoriteProducts.add(productId);
-                            icon.classList.add('active');
-                        }
-                    });
-                });
-            };
-
-            // Gán sự kiện thay đổi
-            [filterName, filterPrice, filterDiscount].forEach(input =>
-                input.addEventListener('input', filterProducts)
-            );
-        });
-    style.
-        .filter-section {
-            background-color: #f9f9f9;
-            padding: 15px;
-            border-radius: 8px;
-            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-            margin-bottom: 20px;
+        function addToCart(id, title, price) {
+            console.log('Product ID: ' + id);
+            console.log('Product Title: ' + title);
+            console.log('Product Price: $' + price);
+        }
+        let url = new URL(window.location.href);
+        const input = document.querySelector(".inputTex"); // Chọn phần tử input
+        if (input) {
+            input.addEventListener('keydown', (event) => {
+                if (event.key === 'Enter') {
+                    url.searchParams.set("title", input.value)
+                    console.log(url);
+                    window.location.href = url;
+                }
+            });
+        } else {
+            console.error("Không tìm thấy phần tử với class 'form-label'.");
         }
 
-        .product-item .favorite-btn {
-            position: absolute;
-            top: 10px;
-            right: 10px;
-            background: none;
-            border: none;
-            cursor: pointer;
-            color: #ccc;
-            font-size: 1.5rem;
-        }
-
-        .product-item .favorite-btn .fa-heart.active {
-            color: red;
-        }
-
-        .product-item:hover .favorite-btn {
-            color: #999;
-        }
-
-        .product-item .favorite-btn:focus {
-            outline: none;
-        }
 

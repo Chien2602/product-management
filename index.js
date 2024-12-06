@@ -21,6 +21,7 @@ const productClient = require("./routes/client/product.route");
 const cartClient = require("./routes/client/cart.route");
 const productInformationClient = require("./routes/client/productInformation.route");
 const payClient = require("./routes/client/pay.route");
+const accountClient=require("./routes/client/account.route");
 // MONGODB
 mongoose.connect()
   .then(() => console.log("Connected to MongoDB"))
@@ -34,7 +35,7 @@ app.use(session({
   resave: false,
   saveUninitialized: true,
 }));
-
+// MIDDLEWARE
 const isAuthenticated = (req, res, next) => {
   if (req.session.loggedIn) {
     return next();
@@ -58,8 +59,9 @@ app.use("/", productClient);
 app.use("/", payClient);
 app.use("/", cartClient);
 app.use("/", productInformationClient);
+app.use("/", accountClient);
 
-
+// SETUP PUGJS
 app.set('views', './views');
 app.set('view engine', 'pug');
 app.use(express.static('public'));
