@@ -8,6 +8,10 @@ module.exports.index = async(req, res) => {
         find.title = { $regex: searchTerm, $options: 'i' };
         console.log(find.title);
     }
+    if (req.query.status) {
+        find.status = req.query.status;
+        console.log(find.status);
+    }
     if (req.query.discountPercentage) {
         find.discountPercentage = { $gt: req.query.discountPercentage }; // Add a condition to filter by discountPercentage
     }

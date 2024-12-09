@@ -1,4 +1,66 @@
 extends ../defaults/defaultAdmin
 
-block main 
-    h1(style="margin-left: 230px") Trang quản lý khách hàng
+block main
+  link(rel="stylesheet", href="/css/admin/tableDefault.css")
+  
+  main(class="table", id="customers_table")
+    section(class="table__header")
+      h1 #{header}
+      div(class="input-group")
+        input(type="search", placeholder="Search Data..." class="inputText")
+
+    section(class="table__body")
+      table
+        thead
+          tr
+            th(style="font-weight: bold; text-align: center;") ID
+            th(style="font-weight: bold; text-align: center;") Hình ảnh
+            th(style="font-weight: bold; text-align: center;") Tên
+            th(style="font-weight: bold; text-align: center;") Tuổi
+            th(style="font-weight: bold; text-align: center;") Giới tính
+            th(style="font-weight: bold; text-align: center;") Email
+            th(style="font-weight: bold; text-align: center;") Quốc gia
+            th(style="font-weight: bold; text-align: center;") Vai trò
+            th(style="font-weight: bold; text-align: center;") Hành động
+
+        tbody
+            each item in users
+                tr(style="text-align: center;")
+                    td #{item.id}
+                    td
+                        img(src=item.image, alt=item.firstName, width="100", height="auto", style="border-radius: 5px;")
+                    td #{item.firstName}
+                    td #{item.age}
+                    td #{item.gender}
+                    td #{item.email}
+                    td #{item.country}
+                    td #{item.role}
+                    td
+                        button.btn.btn-primary(style="border-radius: 5px;") Xem
+                        button.btn.btn-primary(style="border-radius: 5px; background-color: #4EB09B") Chỉnh sửa
+                        button.btn.btn-primary(style="border-radius: 5px; background-color: red") Xóa
+
+  script.
+    let url = new URL(window.location.href);
+    const input = document.querySelector(".inputText"); // Chọn phần tử input
+    if (input) {
+      input.addEventListener('keydown', (event) => {
+        if (event.key === 'Enter') {
+          url.searchParams.set("title", input.value)
+          window.location.href = url;
+        }
+      });
+    }
+
+  style. 
+          /* Global table styles */
+    .table {
+      width: 100%;
+      border-collapse: collapse;
+    }
+
+    .table th, .table td {
+      text-align: center; /* Căn giữa theo chiều ngang */
+      vertical-align: middle; /* Căn giữa theo chiều dọc */
+      padding: 10px;
+    }

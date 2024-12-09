@@ -1,13 +1,12 @@
 extends ../defaults/defaultAdmin
 block main
-  // Import css
   link(rel="stylesheet", href="/css/admin/tableDefault.css")
 
   main(class="table", id="customers_table")
     section(class="table__header")
       h1 #{header}
       div(class="input-group")
-        input(type="search", placeholder="Search Data...")
+        input(type="search", placeholder="Tìm kiếm sản phẩm" class="inputText")
 
     section(class="table__body")
       table
@@ -29,8 +28,31 @@ block main
               td #{item.title}
               td #{item.price}$ 
               td
-                a(href="#", class=`status-link ${item.status}`, style="text-decoration: none; padding: 5px 10px; border-radius: 20px;") #{item.status}
+                a(href="#", class=`status-link ${item.status}`, style="text-decoration: none; padding: 5px 10px; border-radius: 5px;") #{item.status}
               td
                 button.btn.btn-primary(style="border-radius: 5px;") Chỉnh sửa
                 button.btn.btn-danger(style="border-radius: 5px; margin-left: 10px;") Xóa
+  script.
+    let url = new URL(window.location.href);
+    const input = document.querySelector(".inputText"); // Chọn phần tử input
+    if (input) {
+      input.addEventListener('keydown', (event) => {
+        if (event.key === 'Enter') {
+          url.searchParams.set("title", input.value)
+          window.location.href = url;
+        }
+      });
+    }
 
+  style. 
+          /* Global table styles */
+    .table {
+      width: 100%;
+      border-collapse: collapse;
+    }
+
+    .table th, .table td {
+      text-align: center; /* Căn giữa theo chiều ngang */
+      vertical-align: middle; /* Căn giữa theo chiều dọc */
+      padding: 10px;
+    }

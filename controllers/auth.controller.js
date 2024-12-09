@@ -5,6 +5,7 @@ module.exports.login = (req, res) => {
     });
 };
 
+
 module.exports.register = (req, res) => {
     // Render the registration page
     res.render("../views/register.pug", {

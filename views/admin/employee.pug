@@ -7,7 +7,7 @@ block main
     section(class="table__header")
       h1 #{header}
       div(class="input-group")
-        input(type="search", placeholder="Search Data...")
+        input(type="search", placeholder="Search Data..." class="inputText")
 
     section(class="table__body")
       table
@@ -40,4 +40,27 @@ block main
                         button.btn.btn-primary(style="border-radius: 5px; background-color: #4EB09B") Chỉnh sửa
                         button.btn.btn-primary(style="border-radius: 5px; background-color: red") Xóa
 
+  script.
+    let url = new URL(window.location.href);
+    const input = document.querySelector(".inputText"); // Chọn phần tử input
+    if (input) {
+      input.addEventListener('keydown', (event) => {
+        if (event.key === 'Enter') {
+          url.searchParams.set("title", input.value)
+          window.location.href = url;
+        }
+      });
+    }
 
+  style. 
+          /* Global table styles */
+    .table {
+      width: 100%;
+      border-collapse: collapse;
+    }
+
+    .table th, .table td {
+      text-align: center; /* Căn giữa theo chiều ngang */
+      vertical-align: middle; /* Căn giữa theo chiều dọc */
+      padding: 10px;
+    }

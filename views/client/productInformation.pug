@@ -4,11 +4,11 @@ block main
     .container
         .product-detail
             .product-image
-                img(src="https://via.placeholder.com/500", alt="Sản phẩm")
+                img(id="product-image" src="https://via.placeholder.com/500", alt="Sản phẩm")
             .product-info
-                h1 Sản phẩm tuyệt vời
-                p Đây là mô tả chi tiết của sản phẩm. Sản phẩm này có chất lượng tuyệt vời, thiết kế đẹp mắt và rất phù hợp với nhu cầu sử dụng của bạn.
-                .product-price 1.000.000 VNĐ
+                h1#product-title Sản phẩm tuyệt vời
+                p#product-description Đây là mô tả chi tiết của sản phẩm. Sản phẩm này có chất lượng tuyệt vời, thiết kế đẹp mắt và rất phù hợp với nhu cầu sử dụng của bạn.
+                .product-price#product-price 1.000.000 VNĐ
 
                 .quantity-selector
                     label(for="quantity") Số lượng:
@@ -27,12 +27,92 @@ block main
                         option(value="green") Xanh lá
                         option(value="black") Đen
 
-                button.add-to-cart-btn Thêm vào giỏ hàng
+                button.add-to-cart-btn(onclick="addToCart()") Thêm vào giỏ hàng
                 button.buy-product Mua hàng
 
         .comments-section
             h2 Bình luận về sản phẩm
             .add-comment
-                textarea(id="new-comment", placeholder="Viết bình luận...")
+                textarea(id="new-comment", placeholder="Viết bình luận...") 
                 button(onclick="addComment()") Gửi bình luận
-    script(src="/js/client/productInformation.js")
+
+    script.
+        document.addEventListener("DOMContentLoaded", () => {
+            // Hàm lấy thông tin sản phẩm từ cookie
+            const getProductFromCookie = () => {
+                const cookieValue = document.cookie
+                    .split("; ")
+                    .find(row => row.startsWith("cart="))
+                    ?.split("=")[1];
+
+                if (cookieValue) {
+                    return JSON.parse(decodeURIComponent(cookieValue));
+                }
+                return null;
+            };
+
+            // Hàm hiển thị thông tin sản phẩm lên giao diện
+            const displayProductInfo = (product) => {
+                if (product) {
+                    // Hiển thị thông tin sản phẩm lên giao diện
+                    document.querySelector("#product-title").textContent = product.title || 'Sản phẩm tuyệt vời';
+                    document.querySelector("#product-description").textContent = product.description || 'Mô tả sản phẩm không có sẵn.';
+                    document.querySelector("#product-price").textContent = product.price ? `${product.price} VNĐ` : 'Giá: Liên hệ';
+
+                    // Nếu có hình ảnh, cập nhật hình ảnh sản phẩm
+                    if (product.thumbnail) {
+                        document.querySelector("#product-image").src = product.thumbnail;
+                    }
+                } else {
+                    console.error("Không có sản phẩm trong cookie.");
+                }
+            };
+
+            // Lấy thông tin sản phẩm từ cookie và hiển thị lên giao diện
+            const product = getProductFromCookie();
+            displayProductInfo(product);
+
+            // Hàm thêm sản phẩm vào giỏ hàng
+            const addToCart = () => {
+                // Lấy thông tin sản phẩm từ cookie
+                const product = getProductFromCookie();
+
+                // Kiểm tra nếu có sản phẩm trong cookie
+                if (product) {
+                    // Lấy thông tin số lượng và màu sắc từ người dùng
+                    const quantity = document.querySelector("#quantity").value;
+                    const color = document.querySelector("#color").value;
+
+                    // Cập nhật sản phẩm với thông tin mới
+                    const cartProduct = {
+                        ...product,
+                        quantity: quantity,
+                        color: color
+                    };
+
+                    // Lấy giỏ hàng từ localStorage
+                    const cart = JSON.parse(localStorage.getItem("cart")) || [];
+
+                    // Kiểm tra xem sản phẩm đã có trong giỏ hàng chưa
+                    const existingProduct = cart.find(item => item.id === cartProduct.id);
+                    if (existingProduct) {
+                        // Cập nhật số lượng nếu sản phẩm đã có trong giỏ hàng
+                        existingProduct.quantity = parseInt(existingProduct.quantity) + parseInt(cartProduct.quantity);
+                    } else {
+                        // Thêm sản phẩm mới vào giỏ hàng
+                        cart.push(cartProduct);
+                    }
+
+                    // Lưu giỏ hàng vào localStorage
+                    localStorage.setItem("cart", JSON.stringify(cart));
+
+                    // Thông báo đã thêm sản phẩm vào giỏ hàng
+                    alert(`${cartProduct.title} đã được thêm vào giỏ hàng.`);
+                } else {
+                    alert("Không tìm thấy thông tin sản phẩm trong cookie.");
+                }
+            };
+
+            // Thêm sự kiện cho nút "Thêm vào giỏ hàng"
+            document.querySelector(".add-to-cart-btn").addEventListener("click", addToCart);
+        });

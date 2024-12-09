@@ -2,7 +2,6 @@
 a.status-link.active {
     background-color: #36928c;
     color: white;
-    text-align: center;
 }
 
 a.status-link.inactive {
