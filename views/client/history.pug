@@ -3,7 +3,7 @@ extends ../defaults/defaultClient
 block main
   link(rel="stylesheet", href="/css/admin/tableDefault.css")
 
-  main(class="table", id="customers_table")
+  main(class="table", id="customers_table" style="margin-left: 150px")
     section(class="table__header")
       h1 #{header}
       div(class="input-group")
@@ -27,8 +27,13 @@ block main
               td #{index + 1}
               td #{item.maSanPham}
               td
-                img(src=item.hinhAnh, alt=`Hình ảnh của sản phẩm ${item.tenSanPham}`, class="product-image")
+                img(style="border-radius: 2px" src=item.hinhAnh, alt=`Hình ảnh của sản phẩm ${item.tenSanPham}`, class="product-image")
               td #{item.tenSanPham}
               td #{item.gia} VNĐ
               td #{item.soLuong}
               td #{item.thoiGian}
+
+  style. 
+    tr td {
+      text-align: center;
+    }

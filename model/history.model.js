@@ -2,7 +2,7 @@ const mongoose = require('mongoose');
 const {models} = require("mongoose");
 
 const historyShema = new mongoose.Schema({
-    idUser: String,
+    idUser: Object,
     maSanPham: String,
     tenSanPham: String,
     gia: Number,

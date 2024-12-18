@@ -96,7 +96,7 @@ block main
       if (input) {
         input.addEventListener('keydown', (event) => {
           if (event.key === 'Enter') {
-            url.searchParams.set("title", input.value);
+            url.searchParams.set("tenSanPham", input.value);
             window.location.href = url;
           }
         });
@@ -138,7 +138,7 @@ block main
           const productId = event.target.dataset.id;
 
           if (confirm("Bạn có chắc chắn muốn xóa sản phẩm này?")) {
-            fetch(`http://localhost:3000/admin/deleteProduct/${productId}`, { method: 'DELETE' })
+            fetch(`/admin/deleteProduct/${productId}`, { method: 'DELETE' })
               .then(response => {
                 if (response.ok) {
                   alert('Xóa sản phẩm thành công!');

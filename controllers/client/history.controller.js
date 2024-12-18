@@ -17,8 +17,10 @@ module.exports.index = async (req, res) => {
         // Giải mã cookie và lấy cusID
         const decodedCookie = JSON.parse(decodeURIComponent(loginCookie));
         // Truy vấn dữ liệu giỏ hàng dựa trên idUser (cusID)
-        const historyItem = await history.find({ idUser: decodedCookie });
-
+        console.log(JSON.stringify(decodedCookie));
+        console.log(`"${JSON.stringify(decodedCookie)}"`)
+        const jsonString = JSON.stringify(decodedCookie, null, 2);
+        const historyItem = await history.find({ idUser: `${JSON.stringify(decodedCookie)}` });
         if (!historyItem || historyItem.length === 0) {
             return res.render("../views/client/history.pug", {
                 title: "Trang lịch sử mua hàng",
