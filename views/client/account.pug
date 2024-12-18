@@ -1,126 +1,255 @@
-extends ../defaults/defaultClient
+extends ../defaults/defaultAdmin
 block main
     style.
-        body {
-            background-color: #f1f4f8;
-            font-family: 'Roboto', sans-serif;
-        }
-        .card {
-            border: none;
-            border-radius: 15px;
-        }
-        .card-title {
-            font-weight: 700;
-            color: #333;
-        }
-        .img-thumbnail {
-            width: 120px;
-            height: 120px;
-            object-fit: cover;
-            border: 3px solid #007bff;
-        }
-        .btn-primary, .btn-warning, .btn-danger {
-            border: none;
-            transition: background-color 0.3s ease;
-        }
-        .btn-primary:hover { background-color: #0056b3; }
-        .btn-warning:hover { background-color: #e0a800; }
-        .btn-danger:hover { background-color: #b02a37; }
-        .modal-content {
-            border-radius: 15px;
-        }
-        .modal-header {
-            background-color: #007bff;
-            color: #fff;
-        }
-        .modal-title {
-            font-weight: bold;
-        }
-        .footer {
-            margin-top: 30px;
-            font-size: 0.9rem;
-            color: #6c757d;
-        }
-    .container.mt-5
-        // Account Header
-        .card.shadow-lg
-            .card-body.text-center
-                img.rounded-circle.img-thumbnail(src="https://via.placeholder.com/120", alt="Profile Picture")
-                h3.mt-3 John Doe
-                p.text-muted john.doe@example.com
-                button.btn.btn-primary.btn-sm Edit Profile
+      nav ul {
+        list-style-type: none;
+        padding: 0;
+        display: flex;
+        justify-content: center;
+        margin-top: 10px;
+      }
 
-        // Account Details
-        .row.mt-4
-            .col-md-6
-                .card.shadow-sm
-                    .card-body
-                        h5.card-title
-                            i.bi.bi-person.icon
-                            | Personal Information
-                        p
-                            strong Name:
-                            | John Doe
-                        p
-                            strong Phone:
-                            | +123 456 7890
-                        p
-                            strong Address:
-                            | 123 Street Name, City, Country
-            .col-md-6
-                .card.shadow-sm
-                    .card-body
-                        h5.card-title
-                            i.bi.bi-gear.icon
-                            | Account Settings
-                        p
-                            strong Password:
-                            | *********
-                        button.btn.btn-warning.btn-sm(data-bs-toggle="modal", data-bs-target="#changePasswordModal") Change Password
-                        p.mt-3
-                            strong Subscription:
-                            | Premium
+      nav ul li {
+        margin: 0 15px;
+      }
 
-        // Footer
-        .text-center.mt-4.footer
-            button.btn.btn-danger.btn-sm Log Out
-            p © 2024 John Doe Inc. All Rights Reserved.
+      nav ul li a {
+        color: white;
+        text-decoration: none;
+        font-size: 16px;
+        transition: color 0.3s ease;
+      }
 
-    // Change Password Modal
-    .modal.fade#changePasswordModal(tabindex="-1", aria-labelledby="changePasswordModalLabel", aria-hidden="true")
-        .modal-dialog
-            .modal-content
-                .modal-header
-                    h5.modal-title#changePasswordModalLabel Change Password
-                    button.btn-close(type="button", data-bs-dismiss="modal", aria-label="Close")
-                .modal-body
-                    form#changePasswordForm
-                        .mb-3
-                            label.form-label(for="currentPassword") Current Password
-                            input#currentPassword.form-control(type="password", required)
-                        .mb-3
-                            label.form-label(for="newPassword") New Password
-                            input#newPassword.form-control(type="password", required)
-                        .mb-3
-                            label.form-label(for="confirmPassword") Confirm New Password
-                            input#confirmPassword.form-control(type="password", required)
-                        .text-danger#error-message(style="display: none;") Passwords do not match!
-                        button.btn.btn-primary(type="submit") Save Changes
+      nav ul li a:hover {
+        color: #f1f1f1;
+      }
 
-    // Bootstrap JS
-    script(src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/js/bootstrap.bundle.min.js")
+      .container {
+        margin-top: 100px
+        width: 60%;
+        max-width: 1000px;
+        margin: 30px auto;
+        margin-left: 500px
+        background-color: white;
+        padding: 30px;
+        border-radius: 10px;
+        box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+      }
+
+      h2 {
+        font-size: 24px;
+        color: #333;
+        margin-bottom: 20px;
+      }
+
+      .account-info {
+        margin-bottom: 20px;
+      }
+
+      .account-info label {
+        font-size: 18px;
+        display: block;
+        margin-bottom: 8px;
+      }
+
+      .account-info input {
+        width: 100%;
+        padding: 10px;
+        font-size: 16px;
+        border: 1px solid #ddd;
+        border-radius: 5px;
+        margin-bottom: 15px;
+      }
+
+      .account-actions button {
+        width: 100%;
+        padding: 12px;
+        margin: 10px 0;
+        background-color: #4CAF50;
+        color: white;
+        font-size: 16px;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+        transition: background-color 0.3s ease;
+      }
+
+      .account-actions button:hover {
+        background-color: #45a049;
+      }
+
+      /* Modal CSS */
+      .modal {
+        display: none; /* Hidden by default */
+        position: fixed;
+        z-index: 1;
+        left: 0;
+        top: 0;
+        width: 100%;
+        height: 100%;
+        overflow: auto;
+        background-color: rgb(0,0,0);
+        background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
+      }
+
+      .modal-content {
+        background-color: #fefefe;
+        margin: 15% auto;
+        padding: 20px;
+        border: 1px solid #888;
+        width: 80%;
+        max-width: 400px;
+        border-radius: 10px;
+      }
+
+      .modal-header, .modal-footer {
+        text-align: center;
+      }
+
+      .modal-header h2 {
+        font-size: 22px;
+        margin-bottom: 20px;
+      }
+
+      .modal-body {
+        margin-bottom: 20px;
+      }
+
+      .modal-body label {
+        display: block;
+        margin-bottom: 10px;
+      }
+
+      .modal-body input {
+        width: 100%;
+        padding: 10px;
+        font-size: 16px;
+        border: 1px solid #ddd;
+        border-radius: 5px;
+        margin-bottom: 15px;
+      }
+
+      .modal-footer {
+        margin-top: 20px;
+      }
+
+      .modal-footer button {
+        padding: 10px 20px;
+        background-color: #4CAF50;
+        color: white;
+        font-size: 16px;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+      }
+
+      .modal-footer button:hover {
+        background-color: #45a049;
+      }
+
+      footer {
+        text-align: center;
+        padding: 10px;
+        background-color: #333;
+        color: white;
+        position: fixed;
+        bottom: 0;
+        width: 100%;
+      }
+
+
+    .container
+      form#account-form
+        section.account-info
+          h2 Thông tin tài khoản
+          label(for="user-id") ID
+          input#user-id(type="text", name="user-id", required)
+          label(for="user-name") Họ và tên
+          input#user-name(type="text", name="user-name", required)
+          label(for="user-username") UserName
+          input#user-username(type="email", name="user-username", required)
+          label(for="user-pass") Password
+          input#user-pass(type="text", name="user-pass", required)
+
+        section.account-actions
+          //- button(type="button", onclick="openPasswordModal()" style="width: 300px; margin-left: 300px") Đăng xuất
+
+    // Modal Đổi Mật Khẩu
+    #passwordModal.modal
+      .modal-content
+        .modal-header
+          h2 Đổi Mật Khẩu
+        .modal-body
+          label(for="old-password") Mật khẩu cũ
+          input#old-password(type="password", name="old-password", required)
+          label(for="new-password") Mật khẩu mới
+          input#new-password(type="password", name="new-password", required)
+          label(for="confirm-password") Xác nhận mật khẩu mới
+          input#confirm-password(type="password", name="confirm-password", required)
+        .modal-footer
+          button(type="button", onclick="submitPasswordChange()") Lưu thay đổi
+          button(type="button", onclick="closePasswordModal()") Đóng
+
     script.
-        document.getElementById('changePasswordForm').addEventListener('submit', function (e) {
-            e.preventDefault();
-            const newPassword = document.getElementById('newPassword').value;
-            const confirmPassword = document.getElementById('confirmPassword').value;
+      function getCookie(name) {
+        const value = `; ${document.cookie}`;
+        const parts = value.split(`; ${name}=`);
+        if (parts.length === 2) return parts.pop().split(';').shift();
+        return null;
+      }
 
-            if (newPassword !== confirmPassword) {
-                document.getElementById('error-message').style.display = 'block';
-            } else {
-                document.getElementById('error-message').style.display = 'none';
-                alert('Password has been changed successfully!');
-                const modal = bootstrap.Modal.getInstance(document.getElementById('changePasswordModal'));
-                modal.hide();
-            }
-        });
+      // Lấy giá trị của cookie 'login'
+      const loginCookie = getCookie('login');
+      if (loginCookie) {
+        try {
+            let cookieValue = decodeURIComponent(loginCookie);
+            const userData = JSON.parse(cookieValue);
+            const fullName = userData.fullname;
+            const adminID = userData.adminID;
+            const username = userData.adminName;
+            const password = userData.passWord;
+            
+            // Hiển thị dữ liệu lên giao diện
+            document.getElementById('user-id').value = adminID || "";
+            document.getElementById('user-name').value = fullName || "";
+            document.getElementById('user-username').value = username || "";
+            document.getElementById('user-pass').value = password || "";
+
+            console.log("User Data:", userData);
+        } catch (e) {
+            console.log("Không thể phân tích cookie 'login' do cấu trúc không hợp lệ:", e);
+        }
+      } else {
+        console.log('Cookie "login" không tồn tại.');
+      }
+
+      function saveChanges() {
+        const form = document.getElementById('account-form');
+        const name = form['user-name'].value;
+        const email = form['user-email'].value;
+        const phone = form['user-phone'].value;
+
+        alert(`Thông tin đã được cập nhật:\nTên: ${name}\nEmail: ${email}\nSố điện thoại: ${phone}`);
+      }
+
+      function openPasswordModal() {
+        document.getElementById('passwordModal').style.display = 'block';
+      }
+
+      function closePasswordModal() {
+        document.getElementById('passwordModal').style.display = 'none';
+      }
+
+      function submitPasswordChange() {
+        const oldPassword = document.getElementById('old-password').value;
+        const newPassword = document.getElementById('new-password').value;
+        const confirmPassword = document.getElementById('confirm-password').value;
+
+        if (newPassword !== confirmPassword) {
+          alert('Mật khẩu mới và xác nhận mật khẩu không khớp!');
+          return;
+        }
+
+        alert('Mật khẩu đã được thay đổi!');
+        closePasswordModal();
+      }

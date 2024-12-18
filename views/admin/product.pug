@@ -1,4 +1,5 @@
 extends ../defaults/defaultAdmin
+
 block main
   link(rel="stylesheet", href="/css/admin/tableDefault.css")
 
@@ -6,7 +7,7 @@ block main
     section(class="table__header")
       h1 #{header}
       div(class="input-group")
-        input(type="search", placeholder="Tìm kiếm sản phẩm" class="inputText")
+        input(type="search", placeholder="Tìm kiếm sản phẩm", class="input-text")
 
     section(class="table__body")
       table
@@ -21,38 +22,202 @@ block main
 
         tbody
           each item, index in products
-            tr(style="text-align: center;")
+            tr
               td #{index + 1}
               td
-                img(src=item.thumbnail, alt=item.title, width="100", height="auto", style="border-radius: 5px;")
-              td #{item.title}
-              td #{item.price}$ 
+                img(src=item.hinhAnh, alt=`Hình ảnh của sản phẩm ${item.tenSanPham}`, class="product-image")
+              td #{item.tenSanPham}
+              td #{item.gia} VNĐ
               td
-                a(href="#", class=`status-link ${item.status}`, style="text-decoration: none; padding: 5px 10px; border-radius: 5px;") #{item.status}
+                a(
+                  href="#",
+                  class=`status-link ${item.trangThai.toLowerCase()}`,
+                  role="button"
+                ) #{item.trangThai}
               td
-                button.btn.btn-primary(style="border-radius: 5px;") Chỉnh sửa
-                button.btn.btn-danger(style="border-radius: 5px; margin-left: 10px;") Xóa
-  script.
-    let url = new URL(window.location.href);
-    const input = document.querySelector(".inputText"); // Chọn phần tử input
-    if (input) {
-      input.addEventListener('keydown', (event) => {
-        if (event.key === 'Enter') {
-          url.searchParams.set("title", input.value)
-          window.location.href = url;
-        }
-      });
-    }
+                button.btn.btn-danger(
+                  type="button",
+                  data-id=item._id,
+                  class="btn-delete"
+                ) Xóa
 
-  style. 
-          /* Global table styles */
+    // Modal Edit Product
+    .modal#editProductModal
+      .modal-dialog
+        .modal-content
+          .modal-header
+            h5.modal-title Sửa Sản Phẩm
+            button(type="button", class="close", data-dismiss="modal", aria-label="Close")
+              span(aria-hidden="true") &times;
+          .modal-body
+            form#editProductForm(method="POST", action="/admin/editProduct")
+              .form-group
+                label(for="maSanPham") Mã Sản Phẩm
+                input(type="text", id="maSanPham", name="maSanPham", required)
+              .form-group
+                label(for="tenSanPham") Tên Sản Phẩm
+                input(type="text", id="tenSanPham", name="tenSanPham", required)
+              .form-group
+                label(for="tacGia") Tác Giả
+                input(type="text", id="tacGia", name="tacGia", required)
+              .form-group
+                label(for="NXB") Nhà Xuất Bản
+                input(type="text", id="NXB", name="NXB", required)
+              .form-group
+                label(for="theLoai") Thể Loại
+                input(type="text", id="theLoai", name="theLoai", required)
+              .form-group
+                label(for="namSX") Năm Sản Xuất
+                input(type="number", id="namSX", name="namSX", required)
+              .form-group
+                label(for="gia") Giá
+                input(type="number", id="gia", name="gia", required)
+              .form-group
+                label(for="moTa") Mô Tả
+                textarea(id="moTa", name="moTa", rows="4", required)
+              .form-group
+                label(for="soLuong") Số Lượng
+                input(type="number", id="soLuong", name="soLuong", required)
+              .form-group
+                label(for="hinhAnh") URL Hình Ảnh
+                input(type="url", id="hinhAnh", name="hinhAnh", required)
+              .form-group
+                label(for="trangThai") Trạng Thái
+                select(id="trangThai", name="trangThai", required)
+                  option(value="Active") Active
+                  option(value="Inactive") Inactive
+              button.btn.btn-success(type="submit") Cập Nhật
+
+  script.
+    document.addEventListener('DOMContentLoaded', () => {
+      const url = new URL(window.location.href);
+      const input = document.querySelector(".input-text");
+
+      if (input) {
+        input.addEventListener('keydown', (event) => {
+          if (event.key === 'Enter') {
+            url.searchParams.set("title", input.value);
+            window.location.href = url;
+          }
+        });
+      }
+
+      // Chỉnh sửa sản phẩm
+      const editButtons = document.querySelectorAll('.btn-edit');
+      editButtons.forEach(button => {
+        button.addEventListener('click', (event) => {
+          const productId = event.target.dataset.id;
+
+          // Gửi yêu cầu lấy thông tin sản phẩm
+          fetch(`/update/${productId}`)
+            .then(response => response.json())
+            .then(data => {
+              // Điền thông tin sản phẩm vào form
+              document.querySelector('#maSanPham').value = data.maSanPham || '';
+              document.querySelector('#tenSanPham').value = data.tenSanPham || '';
+              document.querySelector('#tacGia').value = data.tacGia || '';
+              document.querySelector('#NXB').value = data.NXB || '';
+              document.querySelector('#theLoai').value = data.theLoai || '';
+              document.querySelector('#namSX').value = data.namSX || '';
+              document.querySelector('#gia').value = data.gia || '';
+              document.querySelector('#moTa').value = data.moTa || '';
+              document.querySelector('#soLuong').value = data.soLuong || '';
+              document.querySelector('#hinhAnh').value = data.hinhAnh || '';
+              document.querySelector('#trangThai').value = data.trangThai || 'Active';
+              // Hiển thị modal
+              $('#editProductModal').modal('show');
+            })
+            .catch(error => console.error('Error:', error));
+        });
+      });
+
+      // Xóa sản phẩm
+      const deleteButtons = document.querySelectorAll('.btn-delete');
+      deleteButtons.forEach(button => {
+        button.addEventListener('click', (event) => {
+          const productId = event.target.dataset.id;
+
+          if (confirm("Bạn có chắc chắn muốn xóa sản phẩm này?")) {
+            fetch(`http://localhost:3000/admin/deleteProduct/${productId}`, { method: 'DELETE' })
+              .then(response => {
+                if (response.ok) {
+                  alert('Xóa sản phẩm thành công!');
+                  window.location.reload();
+                } else {
+                  alert('Có lỗi xảy ra khi xóa sản phẩm.');
+                }
+              })
+              .catch(error => console.error('Error:', error));
+          }
+        });
+      });
+    });
+
+  style.
     .table {
       width: 100%;
       border-collapse: collapse;
     }
 
     .table th, .table td {
-      text-align: center; /* Căn giữa theo chiều ngang */
-      vertical-align: middle; /* Căn giữa theo chiều dọc */
+      text-align: center;
+      vertical-align: middle;
       padding: 10px;
+    }
+
+    .product-image {
+      width: 40px;
+      height: 60px;
+      border-radius: 5px;
+    }
+
+    .btn {
+      padding: 5px 15px;
+      font-size: 14px;
+      cursor: pointer;
+      border: none;
+      transition: background-color 0.3s ease;
+    }
+
+    .btn-primary {
+      background-color: #007bff;
+      color: white;
+    }
+
+    .btn-primary:hover {
+      background-color: #0056b3;
+    }
+
+    .btn-danger {
+      background-color: #dc3545;
+      color: white;
+    }
+
+    .btn-danger:hover {
+      background-color: #c82333;
+    }
+
+    .btn-success {
+      background-color: #28a745;
+      color: white;
+    }
+
+    .btn-success:hover {
+      background-color: #218838;
+    }
+
+    .status-link {
+      display: inline-block;
+      padding: 5px 10px;
+      border-radius: 5px;
+      color: white;
+      text-decoration: none;
+    }
+
+    .active {
+      background-color: #28a745;
+    }
+
+    .inactive {
+      background-color: #ffc107;
     }

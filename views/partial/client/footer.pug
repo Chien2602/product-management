@@ -1,4 +1,4 @@
-link(rel="stylesheet", href="/css/pages.css")
+//- link(rel="stylesheet", href="/css/pages.css")
 footer
     .footer-container
         .footer-left
@@ -21,3 +21,67 @@ footer
                     i.fa-brands.fa-instagram
                 a(href="https://linkedin.com" target="_blank")
                     i.fa-brands.fa-linkedin
+    style. 
+        footer {
+            margin-top: 100px;
+            padding: var(--spacer);
+            background-image: linear-gradient(to left,rgb(31, 40, 62), rgb(31, 40, 62), rgb(99, 110, 114));
+            color: #fff;
+            text-align: center;
+            width: 100%;
+            /* position: fixed; */
+            bottom: 0;
+            height: 100px;
+            /* z-index: 100000; */
+            margin-left: 0;
+        }
+
+        .footer-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            //- max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        .footer-left,
+        .footer-center,
+        .footer-right {
+            flex: 1;
+        }
+
+        .footer-center {
+            flex: 2;
+            text-align: center;
+        }
+
+        .footer-center ul {
+            list-style: none;
+            padding: 0;
+        }
+
+        .footer-center ul li {
+            display: inline;
+            margin: 0 10px;
+        }
+
+        .footer-center ul li a {
+            color: #fff;
+            text-decoration: none;
+        }
+
+        .footer-center ul li a:hover {
+            text-decoration: underline;
+        }
+
+        .social-icons a {
+            color: #fff;
+            margin-left: 15px;
+            font-size: 20px;
+            transition: color 0.3s;
+        }
+
+        .social-icons a:hover {
+            color: #1e90ff;
+        }

@@ -8,7 +8,7 @@ style.
 
     header {
         background-color: #4daf54;
-        background-image: linear-gradient(to left, #4daf54, #3d8880);
+        background-image: linear-gradient(to left,rgb(53, 113, 57), #3d8880);
         padding: 0 30px;
         height: 70px;
         display: flex;
@@ -139,9 +139,44 @@ header
         a(href="http://localhost:3000/home").menubtn Trang chủ
         a(href="http://localhost:3000/product").menubtn Sản phẩm
         a(href="http://localhost:3000/product").menubtn Lịch sử mua hàng
-        .search-box
-            input.search-input(type="text" placeholder="Search")
-            button.search-btn
-                i.fas.fa-search
-        i.fa-solid.fa-cart-shopping(data-name="giỏ hàng" style="margin-right: 150px")
-        i.fa-solid.fa-user(data-name="tài khoản" style="float: right")
+        //- .search-box
+        //-     input.search-input(type="text" placeholder="Search")
+        //-     button.search-btn
+        //-         i.fas.fa-search
+        i.fa-solid.fa-cart-shopping#cartIcon(data-name="giỏ hàng" style="margin-right: 450px")
+        i.fa-solid.fa-user#userIcon(data-name="tài khoản" style="float: right")
+
+        script.
+                        // Đảm bảo mã JavaScript được thực thi sau khi DOM đã tải xong
+            document.addEventListener('DOMContentLoaded', function() {
+            // Lấy phần tử biểu tượng giỏ hàng
+            const cartIcon = document.getElementById('cartIcon');
+            // Lắng nghe sự kiện click trên biểu tượng giỏ hàng
+            if (cartIcon) {
+                cartIcon.addEventListener('click', function() {
+                // Thực hiện hành động khi click vào giỏ hàng
+                //- console.log('Biểu tượng giỏ hàng được nhấn');
+                // Ví dụ: Chuyển hướng đến trang giỏ hàng
+                window.location.href = '/cart';
+                });
+            }
+
+            // Lấy phần tử biểu tượng tài khoản
+            const userIcon = document.getElementById('userIcon');
+            // Lắng nghe sự kiện click trên biểu tượng tài khoản
+            if (userIcon) {
+                userIcon.addEventListener('click', function() {
+                // Thực hiện hành động khi click vào tài khoản
+                console.log('Biểu tượng tài khoản được nhấn');
+                // Ví dụ: Mở modal đăng nhập
+                openLoginModal();
+                });
+            }
+            });
+
+            // Hàm mở modal đăng nhập (ví dụ)
+            function openLoginModal() {
+            // Thực hiện các thao tác để mở modal đăng nhập
+            console.log('Mở modal đăng nhập');
+            // ...
+            }

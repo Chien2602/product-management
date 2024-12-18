@@ -1,0 +1,196 @@
+block main
+  .form-container
+    h2 THÊM SẢN PHẨM
+    form#addProductForm
+      .form-group
+        label(for="maSanPham") Mã Sản Phẩm
+        input(type="text", id="maSanPham", name="maSanPham", required)
+
+      .form-group
+        label(for="tenSanPham") Tên Sản Phẩm
+        input(type="text", id="tenSanPham", name="tenSanPham", required)
+
+      .form-group
+        label(for="tacGia") Tác Giả
+        input(type="text", id="tacGia", name="tacGia", required)
+
+      .form-group
+        label(for="NXB") Nhà Xuất Bản
+        input(type="text", id="NXB", name="NXB", required)
+
+      .form-group
+        label(for="theLoai") Thể Loại
+        input(type="text", id="theLoai", name="theLoai", required)
+
+      .form-group
+        label(for="namSX") Năm Sản Xuất
+        input(type="number", id="namSX", name="namSX", required)
+
+      .form-group
+        label(for="gia") Giá
+        input(type="number", id="gia", name="gia", required)
+
+      .form-group
+        label(for="moTa") Mô Tả
+        textarea(id="moTa", name="moTa", rows="4", required)
+
+      .form-group
+        label(for="soLuong") Số Lượng
+        input(type="number", id="soLuong", name="soLuong", required)
+
+      .form-group
+        label(for="hinhAnh") URL Hình Ảnh
+        input(type="url", id="hinhAnh", name="hinhAnh", required)
+
+      .form-group
+        label(for="trangThai") Trạng Thái
+        select(id="trangThai", name="trangThai", required)
+          option(value="Active") Active
+          option(value="Inactive") Inactive
+
+      button(type="submit" class="btn-submit" style="margin-top: 30px") Thêm Sản Phẩm
+
+      .switch-container
+        p.switch(style="margin-right: 10px") Quay lại danh sách sản phẩm?
+        a(href="/admin/product") Danh Sách Sản Phẩm
+
+    script.
+      document.addEventListener('DOMContentLoaded', () => {
+        const form = document.querySelector('#addProductForm');
+
+        form.addEventListener('submit', async (event) => {
+          event.preventDefault(); // Ngăn reload trang
+
+          const formData = new FormData(form);
+          const productData = Object.fromEntries(formData);
+
+          try {
+            const response = await fetch('http://localhost:3000/admin/addToProduct/product', {
+              method: 'POST',
+              headers: { 'Content-Type': 'application/json' },
+              body: JSON.stringify(productData),
+            });
+
+            const result = await response.json();
+
+            if (response.ok) {
+              alert('Sản phẩm đã được thêm thành công!');
+              window.location.href = '/admin/product';
+            } else {
+              alert(`Thêm sản phẩm thất bại: ${result.error || 'Lỗi không xác định'}`);
+            }
+          } catch (error) {
+            console.error('Error adding product:', error);
+            alert('Có lỗi xảy ra. Vui lòng thử lại.');
+          }
+        });
+      });
+
+    style.
+      body {
+        font-family: 'Arial', sans-serif;
+        background-color: #f5f5f5;
+        margin: 0;
+        padding: 0;
+      }
+
+      .form-container {
+        width: 400px;
+        margin: 50px auto;
+        padding: 30px;
+        background-color: white;
+        border-radius: 12px;
+        box-shadow: 0px 12px 36px rgba(0, 0, 0, 0.1);
+        transition: all 0.3s ease-in-out;
+      }
+
+      .form-container:hover {
+        box-shadow: 0px 16px 48px rgba(0, 0, 0, 0.15);
+        transform: translateY(-5px);
+      }
+
+      h2 {
+        text-align: center;
+        font-size: 26px;
+        color: #333;
+        margin-bottom: 30px;
+        font-weight: bold;
+        letter-spacing: 1px;
+      }
+
+      .form-group {
+        margin-bottom: 20px;
+      }
+
+      label {
+        display: block;
+        font-size: 16px;
+        color: #333;
+        margin-bottom: 8px;
+        font-weight: bold;
+      }
+
+      input[type="text"],
+      input[type="number"],
+      input[type="url"],
+      textarea,
+      select {
+        width: 100%;
+        padding: 12px;
+        margin-top: 5px;
+        font-size: 16px;
+        border: 1px solid #ddd;
+        border-radius: 6px;
+        background-color: #f9f9f9;
+        transition: border-color 0.3s ease, background-color 0.3s ease;
+      }
+
+      input:focus,
+      textarea:focus,
+      select:focus {
+        border-color: #007bff;
+        background-color: #e9f5ff;
+        outline: none;
+      }
+
+      textarea {
+        resize: vertical;
+      }
+
+      button[type="submit"] {
+        width: 100%;
+        padding: 14px;
+        background-color: #28a745;
+        color: white;
+        border: none;
+        border-radius: 6px;
+        font-size: 18px;
+        cursor: pointer;
+        transition: background-color 0.3s ease, transform 0.3s ease;
+      }
+
+      button[type="submit"]:hover {
+        background-color: #218838;
+        transform: translateY(-3px);
+      }
+
+      button[type="submit"]:active {
+        background-color: #1e7e34;
+      }
+
+      .switch-container {
+        text-align: center;
+        margin-top: 30px;
+      }
+
+      .switch-container a {
+        font-size: 16px;
+        color: #007bff;
+        text-decoration: none;
+        transition: color 0.3s ease;
+      }
+
+      .switch-container a:hover {
+        color: #0056b3;
+        text-decoration: underline;
+      }

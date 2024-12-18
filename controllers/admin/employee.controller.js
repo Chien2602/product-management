@@ -1,7 +1,7 @@
-const user = require("../../model/user.model");
+const employee = require("../../model/employee.model");
 
 module.exports.index = async(req, res) => {
-    const users = await user.find({});
+    const users = await employee.find({});
     console.log(users);
     res.render("../views/admin/employee.pug", {
         title: "Trang Nhân viên",

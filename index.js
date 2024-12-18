@@ -1,15 +1,19 @@
 const express = require("express");
 const app = express();
+const cookieParser = require("cookie-parser");
 const bodyParser = require("body-parser");
 const session = require("express-session"); // Add session
 const port = 3000;
-
+app.use(cookieParser());
+const cors = require('cors');
+app.use(cors());
 // ADMIN
 const auth = require("./routes/auth.route");
+const addproduct = require("./routes/admin/addProduct.route");
+const addemployee = require("./routes/admin/addEmployee.route");
 const product = require("./routes/admin/product.route");
 const dashboard = require("./routes/admin/dashboard.route");
 const employee = require("./routes/admin/employee.route");
-const statistical = require("./routes/admin/statistical.route");
 const bill = require("./routes/admin/bill.route");
 const customer = require("./routes/admin/customer.route");
 const account = require("./routes/admin/account.route");
@@ -22,6 +26,7 @@ const cartClient = require("./routes/client/cart.route");
 const productInformationClient = require("./routes/client/productInformation.route");
 const payClient = require("./routes/client/pay.route");
 const accountClient=require("./routes/client/account.route");
+const history=require("./routes/client/history.route");
 // MONGODB
 mongoose.connect()
   .then(() => console.log("Connected to MongoDB"))
@@ -47,7 +52,8 @@ const isAuthenticated = (req, res, next) => {
 app.use("/admin", isAuthenticated, product);
 app.use("/admin", isAuthenticated, dashboard);
 app.use("/admin", isAuthenticated, employee);
-app.use("/admin", isAuthenticated, statistical);
+app.use("/admin", isAuthenticated, addemployee);
+app.use("/admin", addproduct);
 app.use("/admin", isAuthenticated, bill);
 app.use("/admin", isAuthenticated, customer);
 app.use("/admin", isAuthenticated, account);
@@ -60,7 +66,7 @@ app.use("/", payClient);
 app.use("/", cartClient);
 app.use("/", productInformationClient);
 app.use("/", accountClient);
-
+app.use("/", history);
 // SETUP PUGJS
 app.set('views', './views');
 app.set('view engine', 'pug');

@@ -15,7 +15,7 @@ header {
     box-sizing: border-box;
     margin-bottom: 50px;
     background-image: linear-gradient(to left, white, white);
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    /* box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); */
 }
 
 .inbutBox {
@@ -80,7 +80,7 @@ header {
     justify-content: center;
     border-radius: 50%;
     background-color: #7f8585;
-    margin-left: 1000px;
+    margin-left: 790px;
     margin-right: 7px;
 }
 
@@ -128,11 +128,12 @@ a.nav-link {
     justify-content: center;
     padding: 15px 0;
     transition: background-color 0.3s ease, color 0.3s ease;
-    margin-bottom: 15px;
+    margin-bottom: 20px;
 }
 
 .icon-container {
     font-size: 35px;
+    margin-bottom: 10px;
 }
 
 .text-container {

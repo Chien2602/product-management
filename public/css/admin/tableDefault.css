@@ -1,10 +1,10 @@
 
-a.status-link.active {
-    background-color: #36928c;
+a.status-link.Active {
+    background-color: #5fd0c8;
     color: white;
 }
 
-a.status-link.inactive {
+a.status-link.Inactive {
     background-color: #dc3545;
     color: white;
 }

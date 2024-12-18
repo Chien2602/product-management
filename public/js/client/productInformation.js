@@ -24,18 +24,26 @@ function addReply(parentCommentId) {
                 </div>
                 <div class="reply-section" id="reply-section-${newReplyId}" style="display: none;">
                     <textarea id="reply-${newReplyId}" placeholder="Viết phản hồi..."></textarea>
-                    <button onclick="addReply('${newReplyId}')" id="btn">Gửi phản hồi</button>
+                    <button onclick="addReply('${newReplyId}')" id="btn-${newReplyId}">Gửi phản hồi</button>
                 </div>
             </div>
         </div>
     `;
-
     // Thêm phản hồi vào cuối danh sách phản hồi
     replySection.insertAdjacentHTML("beforeend", newReplyHTML);
 
     // Xóa nội dung trong ô nhập
-    document.getElementById(`reply-${parentCommentId}`).value = "";
-    document.getElementById(`reply-${parentCommentId}`).style.display = "none";
+    const replyInput = document.getElementById(`reply-${parentCommentId}`);
+    replyInput.value = "";
+
+    // Ẩn nút "Gửi phản hồi" chỉ sau khi đã gửi phản hồi
+    const sendButtonOriginal = document.getElementById(`btn-${parentCommentId}`);
+    if (sendButtonOriginal) {
+        sendButtonOriginal.style.display = "none";
+    }
+
+    // Hiển thị lại vùng nhập nếu cần
+    replyInput.style.display = "none";
 }
 
 function addComment() {
@@ -60,12 +68,11 @@ function addComment() {
                 </div>
                 <div class="reply-section" id="reply-section-${newCommentId}" style="display: none;">
                     <textarea id="reply-${newCommentId}" placeholder="Viết phản hồi..."></textarea>
-                    <button onclick="addReply('${newCommentId}')">Gửi phản hồi</button>
+                    <button onclick="addReply('${newCommentId}')" id="btn-${newCommentId}">Gửi phản hồi</button>
                 </div>
             </div>
         </div>
     `;
-
     // Tạo một DOM element từ chuỗi HTML
     const tempDiv = document.createElement("div");
     tempDiv.innerHTML = newCommentHTML;
@@ -73,8 +80,6 @@ function addComment() {
     // Thêm phần tử đầu tiên của tempDiv vào DOM ngay trước form
     commentsSection.insertBefore(tempDiv.firstElementChild, addCommentForm);
 
-
     // Xóa nội dung trong ô nhập
     document.getElementById("new-comment").value = "";
 }
-
