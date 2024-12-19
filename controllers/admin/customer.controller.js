@@ -2,7 +2,14 @@ const Customer = require("../../model/customer.model");
 const user = require("../../model/customer.model");
 
 module.exports.index = async(req, res) => {
-    const users = await user.find({});
+    let find = {};
+    if (req.query.FullName) {
+        const searchTerm = req.query.FullName.replace(/\+/g, ' ');
+        find.FullName = { $regex: searchTerm, $options: 'i' };
+        console.log(find.FullName);
+    }
+    console.log(find);
+    const users = await user.find(find);
     console.log(users);
     res.render("../views/admin/customer.pug", {
         title: "Trang khách hàng",

@@ -41,7 +41,7 @@ block main
 
       .switch-container
         p.switch(style="margin-right: 10px") Quay lại trang quản lý nhân viên?
-        a(href="/employees") Danh sách nhân viên
+        a(href="/admin/employee") Danh sách nhân viên
 
     script.
       document.addEventListener('DOMContentLoaded', () => {
@@ -64,10 +64,10 @@ block main
             const result = await response.json();
 
             if (response.ok) {
-              alert('Sản phẩm đã được thêm thành công!');
-            //-   window.location.href = '/admin/employee';
+              alert('Nhân viên đã được thêm thành công!');
+              window.location.href = '/admin/employee';
             } else {
-              alert(`Thêm sản phẩm thất bại: ${result.error || 'Lỗi không xác định'}`);
+              alert(`Thêm nhân viên thất bại: ${result.error || 'Lỗi không xác định'}`);
             }
           } catch (error) {
             console.error('Error adding product:', error);

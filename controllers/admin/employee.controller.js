@@ -1,7 +1,14 @@
 const employee = require("../../model/employee.model");
 
 module.exports.index = async(req, res) => {
-    const users = await employee.find({});
+    let find = {};
+    if (req.query.hoTen) {
+        const searchTerm = req.query.hoTen.replace(/\+/g, ' ');
+        find.hoTen = { $regex: searchTerm, $options: 'i' };
+        console.log(find.hoTen);
+    }
+    console.log(find);
+    const users = await employee.find(find);
     console.log(users);
     res.render("../views/admin/employee.pug", {
         title: "Trang Nhân viên",

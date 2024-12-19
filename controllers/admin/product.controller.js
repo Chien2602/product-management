@@ -2,7 +2,7 @@ const product = require("../../model/product.model");
 
 module.exports.index = async(req, res) => {
     let find = {};
-    if (req.query.title) {
+    if (req.query.tenSanPham) {
         const searchTerm = req.query.tenSanPham.replace(/\+/g, ' ');
         find.tenSanPham = { $regex: searchTerm, $options: 'i' };
         console.log(find.tenSanPham);

@@ -43,7 +43,7 @@ block main
     if (input) {
       input.addEventListener('keydown', (event) => {
         if (event.key === 'Enter') {
-          url.searchParams.set("title", input.value)
+          url.searchParams.set("hoTen", input.value)
           window.location.href = url;
         }
       });
